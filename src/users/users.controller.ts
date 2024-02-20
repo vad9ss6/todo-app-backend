@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Param } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
 import { UsersService } from './users.service';
@@ -20,5 +20,11 @@ export class UsersController {
   @Get(':id')
   findOne(@Param('user_name') user_name: string) {
     return this.usersService.findOne(user_name);
+  }
+
+  @ApiBearerAuth()
+  @Delete(':id')
+  deleteOne(@Param('id') id: string) {
+    return this.usersService.deleteOne(id);
   }
 }
