@@ -22,4 +22,10 @@ export class UsersService {
       where: { user_name },
     });
   }
+  async deleteOne(id: string) {
+    const user = await this.usersRepository.findOne({
+      where: { id },
+    });
+    return this.usersRepository.remove(user);
+  }
 }
