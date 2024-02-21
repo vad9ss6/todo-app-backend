@@ -17,7 +17,7 @@ export class UsersController {
   }
 
   @ApiBearerAuth()
-  @Get(':id')
+  @Get(':user_name')
   findOne(@Param('user_name') user_name: string) {
     return this.usersService.findOne(user_name);
   }
