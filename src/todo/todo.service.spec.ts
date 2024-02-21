@@ -60,13 +60,7 @@ describe('TodoService', () => {
         },
       ];
 
-      jest.spyOn(userRepository, 'findOne').mockResolvedValue({
-        id,
-        user_id: '1234',
-        title: 'some todo',
-        description: 'any tasks',
-      });
-      // jest.spyOn(userRepository, 'findBy').mockResolvedValue(todo);
+      jest.spyOn(userRepository, 'findBy').mockResolvedValue(todo);
 
       const result = await service.findOne(id);
 
