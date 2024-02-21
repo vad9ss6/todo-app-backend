@@ -17,5 +17,5 @@ jobs:
           cache: 'npm'
       - name: Install dependencies
         run: npm install --immutable --immutable-cache --check-cache
-      - run: npm lint
+      - run: npm run lint
       - run: npm test
