@@ -54,7 +54,7 @@ describe('TodoService', () => {
       const todo = [
         {
           id,
-          user_id: '1234',
+          user_i: '1234',
           title: 'some todo',
           description: 'any tasks',
         },
