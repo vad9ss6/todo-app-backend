@@ -54,7 +54,7 @@ describe('TodoService', () => {
       const todo = [
         {
           id,
-          user_i: '1234',
+          user_id: '1234',
           title: 'some todo',
           description: 'any tasks',
         },
@@ -67,30 +67,32 @@ describe('TodoService', () => {
       expect(result).toEqual(todo);
     });
 
-    // it('should throw NotFoundException if user does not exist', async () => {
-    //   const username = 'nonexistentuser';
-    //   jest.spyOn(userRepository, 'findOne').mockResolvedValue(null);
+    it('should throw NotFoundException if todo does not exist', async () => {
+      const todoId = '1';
 
-    //   await expect(service.findOne(username)).rejects.toThrow(
-    //     NotFoundException,
-    //   );
-    // });
+      jest.spyOn(userRepository, 'findBy').mockResolvedValue(null);
+
+      await expect(service.findOne(todoId)).rejects.toThrow(NotFoundException);
+    });
   });
 
-  // describe('deleteOne', () => {
-  //   it('should delete a user', async () => {
-  //     const userId = '1';
-  //     const user = {
-  //       id: userId,
-  //       user_name: 'testuser',
-  //       password: '1234567890',
-  //     };
-  //     jest.spyOn(userRepository, 'findOne').mockResolvedValue(user);
-  //     jest.spyOn(userRepository, 'remove').mockResolvedValue(user);
+  describe('deleteOne', () => {
+    it('should delete a todo', async () => {
+      const todoId = '4';
+      const deleteResult = { raw: [], affected: 1 };
+      jest.spyOn(userRepository, 'delete').mockResolvedValue(deleteResult);
 
-  //     const result = await service.deleteOne(userId);
+      const result = await service.delete(todoId);
 
-  //     expect(result).toEqual(user);
-  //   });
-  // });
+      expect(result).toEqual(deleteResult);
+    });
+
+    it('should throw NotFoundException if todo is not found', async () => {
+      const id = 'non-existing-id';
+
+      jest.spyOn(userRepository, 'delete').mockResolvedValue(null);
+
+      await expect(service.delete(id)).rejects.toThrow(NotFoundException);
+    });
+  });
 });

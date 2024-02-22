@@ -27,7 +27,7 @@ export class TodoController {
     return this.todoService.create(createTodoDto, user?.sub);
   }
 
-  @Get()
+  @Get('/all')
   findAll(@Req() request) {
     const { user } = request;
 
@@ -45,7 +45,7 @@ export class TodoController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.todoService.remove(id);
+  delete(@Param('id') id: string) {
+    return this.todoService.delete(id);
   }
 }
