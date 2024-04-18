@@ -15,8 +15,9 @@ jobs:
 
       - name: Build and push Docker image
         run: |
-          docker-compose build
-          docker-compose push
+          docker build -t myapp:latest .
+          docker save -o myapp.tar myapp:latest
+          scp -i ${{ env.SSH_PRIVATE_KEY }} myapp.tar ${{ secrets.DROPLET_USERNAME }}@${{ secrets.DROPLET_IP }}:/api/
 
       - name: SSH into DigitalOcean Droplet
         uses: appleboy/ssh-action@master
@@ -26,7 +27,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             ssh -o StrictHostKeyChecking=no ${{ secrets.DROPLET_USERNAME }}@${{ secrets.DROPLET_IP }} << 'EOF'
-            cd api/
-            docker-compose pull app
+            cd /api/
+            docker load -i myapp.tar
             docker-compose up -d
             EOF
