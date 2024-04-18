@@ -15,10 +15,9 @@ jobs:
 
       - name: Copy files to DigitalOcean
         run: |
-          sshpass -p ${{ secrets.SSH_PASSWORD }} scp -r ./ ${{ secrets.DROPLET_USERNAME }}@${{ secrets.DROPLET_IP }}:/root/api/
+          sshpass -e scp -r ./ ${{ secrets.DROPLET_USERNAME }}@${{ secrets.DROPLET_IP }}:/root/api/
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-          SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
           DROPLET_USERNAME: ${{ secrets.DROPLET_USERNAME }}
           DROPLET_IP: ${{ secrets.DROPLET_IP }}
 
