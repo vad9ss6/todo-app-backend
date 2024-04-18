@@ -16,25 +16,13 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    image: myapp:latest
     container_name: api-todo
     ports:
       - '3000:3000'
     depends_on:
       - db
     env_file:
-      - .env.dev
       - .env.production
     volumes:
       - ./src:/app/src
-
-  pgadmin:
-    image: dpage/pgadmin4
-    restart: always
-    container_name: pgadmin4
-    environment:
-      - PGADMIN_DEFAULT_EMAIL=admin@admin.com
-      - PGADMIN_DEFAULT_PASSWORD=pgadmin4
-    ports:
-      - '5050:80'
-    depends_on:
-      - db
