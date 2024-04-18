@@ -13,6 +13,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Debug
+        run: |
+          echo "SSH private key: ${{ env.SSH_PRIVATE_KEY }}"
+          echo "Droplet username: ${{ secrets.DROPLET_USERNAME }}"
+          echo "Droplet IP: ${{ secrets.DROPLET_IP }}"
+
       - name: Build and push Docker image
         run: |
           docker build -t myapp:latest .
