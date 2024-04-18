@@ -17,7 +17,7 @@ jobs:
         run: |
           docker build -t myapp:latest .
           docker save -o myapp.tar myapp:latest
-          scp -i ${{ env.SSH_PRIVATE_KEY }} myapp.tar ${{ secrets.DROPLET_USERNAME }}@${{ secrets.DROPLET_IP }}:/root/
+          scp -i ${{ env.SSH_PRIVATE_KEY }} myapp.tar ${{ secrets.DROPLET_USERNAME }}@${{ secrets.DROPLET_IP }}:/root/api/
 
       - name: SSH into DigitalOcean Droplet
         uses: appleboy/ssh-action@master
@@ -27,7 +27,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             ssh -o StrictHostKeyChecking=no ${{ secrets.DROPLET_USERNAME }}@${{ secrets.DROPLET_IP }} << 'EOF'
-            cd /root/
+            cd /root/api/
             docker load -i myapp.tar
             docker-compose up -d
             EOF
