@@ -17,12 +17,13 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: api-todo
-    environment:
-      - PORT=${PORT}
     ports:
       - '3000:3000'
     depends_on:
       - db
+    env_file:
+      - .env.dev
+      - .env.production
     volumes:
       - ./src:/app/src
 

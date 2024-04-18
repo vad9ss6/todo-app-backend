@@ -5,6 +5,7 @@ import { Repository } from 'typeorm';
 
 import { TodoService } from './todo.service';
 import { Todo } from './entities/todo.entity';
+import { Status } from './dto/create-todo.dto';
 
 describe('TodoService', () => {
   let service: TodoService;
@@ -34,6 +35,7 @@ describe('TodoService', () => {
       const createTodoDto = {
         title: 'some todo',
         description: 'any tasks',
+        status: Status.ToDo,
       };
 
       const user_id = '1234';
@@ -57,6 +59,7 @@ describe('TodoService', () => {
           user_id: '1234',
           title: 'some todo',
           description: 'any tasks',
+          status: Status.ToDo,
         },
       ];
 
