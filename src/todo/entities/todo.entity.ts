@@ -1,4 +1,5 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Status } from '../dto/create-todo.dto';
 
 @Entity()
 export class Todo {
@@ -7,6 +8,9 @@ export class Todo {
 
   @Column()
   title: string;
+
+  @Column()
+  status: Status;
 
   @Column()
   description: string;

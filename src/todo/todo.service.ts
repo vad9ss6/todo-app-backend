@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { CreateTodoDto } from './dto/create-todo.dto';
+import { CreateTodoDto, Status } from './dto/create-todo.dto';
 import { UpdateTodoDto } from './dto/update-todo.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Todo } from './entities/todo.entity';
@@ -15,6 +15,7 @@ export class TodoService {
   create(createTodoDto: CreateTodoDto, user_id: string) {
     const todo = this.usersRepository.create({
       ...createTodoDto,
+      status: createTodoDto.status || Status.ToDo,
       user_id,
     });
     return this.usersRepository.save(todo);
