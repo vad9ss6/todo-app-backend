@@ -20,4 +20,4 @@ jobs:
             mv ~/todo-app-backend ~/api 
             cd ~/api/ 
             docker-compose build
-            docker-compose -d up
+            docker-compose up -d
