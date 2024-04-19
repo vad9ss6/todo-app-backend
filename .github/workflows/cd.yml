@@ -1,23 +1,15 @@
-name: Deploy to DigitalOcean
-
+name: Deploy to DigitalOcean Droplet
 on:
-  push:
-    branches:
-      - main
-
+  workflow_dispatch:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
     steps:
-      - uses: actions/checkout@v2
-      - name: Setup SSH Agent
-        uses: webfactory/ssh-agent@v0.5.2
+      - name: Deploy to DigitalOcean Droplet
+        uses: appleboy/ssh-action@master
         with:
-          ssh-private-key: ${{ secrets.SSH_KEY }}
-      - name: Deploy to Digital Ocean
-        run: |
-          ssh -o StrictHostKeyChecking=no ${{ secrets.DROPLET_USERNAME }}@${{ secrets.DROPLET_IP }} "
-            cd /root/api/
+          host: ${{secrets.DROPLET_IP}}
+          username: ${{secrets.DROPLET_USERNAME}}
+          key: ${{secrets.SSH_KEY}}
+          script: |
             git clone https://github.com/vad9ss6/todo-app-backend.git
-          "
