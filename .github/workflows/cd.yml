@@ -15,6 +15,8 @@ jobs:
           key: ${{secrets.SSH_KEY}}
           script: |
             docker-compose down
+            docker rm -f $(docker ps -a -q)
+            docker volume rm $(docker volume ls -q)
             rm -R ~/api
             git clone https://github.com/vad9ss6/todo-app-backend.git
             mv ~/todo-app-backend ~/api 
