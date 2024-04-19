@@ -13,3 +13,4 @@ jobs:
           key: ${{secrets.SSH_KEY}}
           script: |
             git clone https://github.com/vad9ss6/todo-app-backend.git
+            mv ~/todo-app-backend ~/api 
