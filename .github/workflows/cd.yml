@@ -13,15 +13,16 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Deploy to DigitalOcean
-        uses: appleboy/ssh-action@master
+      - name: Run command on remote server
+        uses: D3rHase/ssh-command-action@v0.2.2
         with:
-          host: ${{ secrets.DROPLET_IP }}
-          username: ${{ secrets.DROPLET_USERNAME }}
-          key: ${{ secrets.SSH_KEY }}
-          script: |
-            ssh -o StrictHostKeyChecking=no ${{ secrets.DROPLET_USERNAME }}@${{ secrets.DROPLET_IP }} << 'EOF'
+          host: ${{secrets.DROPLET_IP}} # Remote server address / ip - required
+          user: ${{secrets.DROPLET_USERNAME}} # Remote server port -  Default: 22 - optional
+          private_key: ${{secrets.SSH_KEY}} # Remote server user - required
+          host_fingerprint:
+            ${{secrets.HOST_FINGERPRINT}} # Public ssh key fingerprint,
+            # viewable via ssh-keyscan -H $HOST -p $PORT - optional
+          command: |
             cd /root/api/
-            git pull origin main
-            docker-compose restart
-            EOF
+            git checkout main;
+            git pull;
