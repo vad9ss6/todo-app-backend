@@ -17,12 +17,12 @@ jobs:
         uses: D3rHase/ssh-command-action@v0.2.2
         with:
           host: ${{secrets.DROPLET_IP}} # Remote server address / ip - required
-          user: ${{secrets.DROPLET_USERNAME}} # Remote server port -  Default: 22 - optional
+          user: ${{secrets.DROPLET_USERNAME}} # Remote server port - Default: 22 - optional
           private_key: ${{secrets.SSH_KEY}} # Remote server user - required
-          host_fingerprint:
-            ${{secrets.HOST_FINGERPRINT}} # Public ssh key fingerprint,
-            # viewable via ssh-keyscan -H $HOST -p $PORT - optional
+          host_fingerprint: ${{secrets.HOST_FINGERPRINT}} # Public ssh key fingerprint,
+                                                         # viewable via ssh-keyscan -H $HOST -p $PORT - optional
           command: |
             cd /root/api/
             git checkout main;
             git pull;
+          ssh_options: "-o StrictHostKeyChecking=no"
