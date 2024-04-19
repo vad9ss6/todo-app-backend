@@ -11,10 +11,12 @@ jobs:
           host: ${{secrets.DROPLET_IP}}
           username: ${{secrets.DROPLET_USERNAME}}
           key: ${{secrets.SSH_KEY}}
+          command_timeout: 2
           script: |
+            docker-compose down
+            rm -R ~/api
             git clone https://github.com/vad9ss6/todo-app-backend.git
             mv ~/todo-app-backend ~/api 
             cd /api/ 
-            docker-compose down
             docker-compose build
             docker-compose up
