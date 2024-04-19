@@ -7,8 +7,6 @@ jobs:
     steps:
       - name: Deploy to DigitalOcean Droplet
         uses: appleboy/ssh-action@master
-        env:
-          INPUT_COMMAND_TIMEOUT: 2
         with:
           host: ${{secrets.DROPLET_IP}}
           username: ${{secrets.DROPLET_USERNAME}}
@@ -22,4 +20,4 @@ jobs:
             mv ~/todo-app-backend ~/api 
             cd ~/api/ 
             docker-compose build
-            docker-compose up
+            docker-compose -d up
