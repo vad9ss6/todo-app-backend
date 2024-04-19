@@ -14,7 +14,7 @@ jobs:
           script: |
             git clone https://github.com/vad9ss6/todo-app-backend.git
             mv ~/todo-app-backend ~/api 
-            cd /api/ 
+            cd ~/api/ 
             docker-compose down
             docker-compose build
             docker-compose up
