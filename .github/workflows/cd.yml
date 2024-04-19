@@ -10,19 +10,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Run command on remote server
-        uses: D3rHase/ssh-command-action@v0.2.2
+      - uses: actions/checkout@v2
+      - name: Setup SSH Agent
+        uses: webfactory/ssh-agent@v0.5.2
         with:
-          host: ${{secrets.DROPLET_IP}} # Remote server address / ip - required
-          user: ${{secrets.DROPLET_USERNAME}} # Remote server port - Default: 22 - optional
-          private_key: ${{secrets.SSH_KEY}} # Remote server user - required
-          host_fingerprint: ${{secrets.HOST_FINGERPRINT}} # Public ssh key fingerprint,
-                                                         # viewable via ssh-keyscan -H $HOST -p $PORT - optional
-          command: |
+          ssh-private-key: ${{ secrets.SSH_KEY }}
+      - name: Deploy to Digital Ocean
+        run: |
+          ssh -o StrictHostKeyChecking=no ${{ secrets.DROPLET_USERNAME }}@${{ secrets.DROPLET_IP }} "
             cd /root/api/
-            git checkout main;
-            git pull;
-          ssh_options: "-o StrictHostKeyChecking=no"
+            git clone https://github.com/vad9ss6/todo-app-backend.git
+          "
