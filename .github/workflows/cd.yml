@@ -12,6 +12,7 @@ jobs:
           username: ${{secrets.DROPLET_USERNAME}}
           key: ${{secrets.SSH_KEY}}
           script: |
+            kill -9 $(ps -ef | grep 'ngrok' | grep -v 'grep' | awk '{print $2}')
             docker-compose down
             docker rm -f $(docker ps -a -q)
             docker volume rm $(docker volume ls -q)
@@ -21,3 +22,6 @@ jobs:
             cd ~/api/ 
             docker-compose build
             docker-compose up -d
+            ngrok http http://64.226.91.13:3000 > /dev/null &
+            PUBLIC_URL=$(curl -sS http://localhost:4040/api/tunnels | jq -r '.tunnels[0].public_url')
+            echo $PUBLIC_URL
