@@ -28,3 +28,4 @@ jobs:
             PUBLIC_URL=$(curl -sS http://localhost:4040/api/tunnels | jq -r '.tunnels[0].public_url')
             echo $PUBLIC_URL
             kill -9 $NGROK_PID
+            exit 0
