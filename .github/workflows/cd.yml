@@ -13,7 +13,9 @@ jobs:
           node-version: 20
 
       - name: Install Dependencies
-        run: npm install
+        run: |
+          npm install
+          npm install -g vite
 
       - name: Deploy to DigitalOcean Droplet
         uses: appleboy/ssh-action@master
