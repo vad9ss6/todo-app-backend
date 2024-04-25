@@ -10,6 +10,9 @@ jobs:
         with:
           node-version: 20
 
+      - name: Install Dependencies
+        run: npm install
+
       - name: Deploy to DigitalOcean Droplet
         uses: appleboy/ssh-action@master
         with:
@@ -38,6 +41,5 @@ jobs:
             git add .env
             git commit -m "Update PUBLIC_URL in .env file"
             git push
-            npm install
             npm run build-only
             npm run deploy
