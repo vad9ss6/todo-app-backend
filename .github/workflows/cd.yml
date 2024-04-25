@@ -27,4 +27,15 @@ jobs:
             sleep 2
             PUBLIC_URL=$(curl -sS http://localhost:4040/api/tunnels | jq -r '.tunnels[0].public_url')
             echo $PUBLIC_URL
-            exit 0
+
+      - name: Update .env file in another repository
+        run: |
+          PUBLIC_URL=$(curl -sS http://localhost:4040/api/tunnels | jq -r '.tunnels[0].public_url')
+          echo "PUBLIC_URL=$PUBLIC_URL" > todo-vue/.env
+          cd todo-vue
+          git add .env
+          git commit -m "Update PUBLIC_URL in .env file"
+          git push origin master
+          git subtree push --prefix dist origin gh-pages
+        env:
+          PATH: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
