@@ -5,17 +5,6 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Check Node.js version
-        run: node -v
-      - uses: actions/checkout@v4
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 14.x
-      - name: Install Dependencies
-        run: |
-          npm install
-          npm install -g vite
       - name: Deploy to DigitalOcean Droplet
         uses: appleboy/ssh-action@master
         with:
@@ -44,5 +33,7 @@ jobs:
             git add .env
             git commit -m "Update PUBLIC_URL in .env file"
             git push
+            npm install
+            npm install vite
             npm run build-only
             npm run deploy
