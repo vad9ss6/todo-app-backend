@@ -27,6 +27,7 @@ jobs:
             sleep 2
             PUBLIC_URL=$(curl -sS http://localhost:4040/api/tunnels | jq -r '.tunnels[0].public_url')
             echo $PUBLIC_URL
+            rm -R ~/todo-vue
             git clone https://github.com/vad9ss6/todo-vue.git
             cd ~/todo-vue/
             echo "PUBLIC_URL=$PUBLIC_URL" > todo-vue/.env
