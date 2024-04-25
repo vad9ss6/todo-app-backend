@@ -29,6 +29,7 @@ jobs:
             echo $PUBLIC_URL
             cd ~/todo-vue/
             git pull
+            nove -v
             echo "PUBLIC_URL=$PUBLIC_URL" > .env
             git add .env
             git commit -m "Update PUBLIC_URL in .env file"
