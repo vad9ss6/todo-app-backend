@@ -31,7 +31,7 @@ jobs:
       - name: Update .env file in another repository
         run: |
           git clone https://github.com/vad9ss6/todo-vue.git
-          cd ~/todo-vue
+          cd ~/todo-vue/
           echo "PUBLIC_URL=$PUBLIC_URL" > todo-vue/.env
           git add .env
           git commit -m "Update PUBLIC_URL in .env file"
