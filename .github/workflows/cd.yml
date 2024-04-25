@@ -5,10 +5,10 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v3
         with:
-          node-version: '20'
+          node-version: 20
 
       - name: Deploy to DigitalOcean Droplet
         uses: appleboy/ssh-action@master
