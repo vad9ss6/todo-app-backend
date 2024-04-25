@@ -33,7 +33,6 @@ jobs:
             git add .env
             git commit -m "Update PUBLIC_URL in .env file"
             git push
-            npm install
-            npm install vite
+
             npm run build-only
             npm run deploy
