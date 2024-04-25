@@ -30,7 +30,6 @@ jobs:
 
       - name: Update .env file in another repository
         run: |
-          PUBLIC_URL=$(curl -sS http://localhost:4040/api/tunnels | jq -r '.tunnels[0].public_url')
           git clone git@github.com:vad9ss6/todo-vue.git ~/
           cd ~/todo-vue
           echo "PUBLIC_URL=$PUBLIC_URL" > todo-vue/.env
