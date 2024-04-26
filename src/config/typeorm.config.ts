@@ -10,7 +10,7 @@ export class TypeOrmConfigService implements TypeOrmOptionsFactory {
     console.log('database url', this.configService.get<string>('DATABASE_URL').replace('?sslmode=require', '?sslmode=disable'));
     return {
       type: 'postgres',
-      url: this.configService.get<string>('DATABASE_URL').replace('?sslmode=require', '?sslmode=disable'),
+      url: this.configService.get<string>('DATABASE_URL').replace('?sslmode=require', '?sslmode=no-verify'),
       entities: ['dist/**/**/*.entity.{ts,js}'],
       synchronize: true,
       logging: true,
