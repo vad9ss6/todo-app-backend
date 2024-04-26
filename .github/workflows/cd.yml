@@ -27,9 +27,3 @@ jobs:
             sleep 2
             PUBLIC_URL=$(curl -sS http://localhost:4040/api/tunnels | jq -r '.tunnels[0].public_url')
             echo $PUBLIC_URL
-            cd ~/todo-vue/
-            git pull
-            echo "PUBLIC_URL=$PUBLIC_URL" > .env
-            git add .env
-            git commit -m "Update PUBLIC_URL in .env file"
-            git push
