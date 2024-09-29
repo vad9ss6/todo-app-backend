@@ -6,8 +6,9 @@ import { AppModule } from './app.module';
 import { config as loadEnvVariables } from 'dotenv';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
   loadEnvVariables();
+  const app = await NestFactory.create(AppModule);
+
   const config = new DocumentBuilder()
     .setTitle('To do Application')
     .setVersion('v1')
@@ -21,7 +22,7 @@ async function bootstrap() {
   SwaggerModule.setup('api', app, document);
 
   const configService = app.get(ConfigService);
-  const port = +configService.get<number>('PORT');
+  const port = +configService.get<number>('PORT', 3000);
 
   await app.listen(port);
 }
